@@ -6,67 +6,67 @@ import Card from 'react-bootstrap/Card';
 
 
 class DeployFactoryContractForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            account: props.accounts[0],
-            gas: 1000000
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      account: props.accounts[0],
+      gas: 1000000
+    };
+  }
 
-    handleOnChangeAmount(event) {
-        this.setState({
-            ...this.state,
-            gas: event.target.value
-        });
-    }
+  handleOnChangeAmount(event) {
+    this.setState({
+      ...this.state,
+      gas: event.target.value
+    });
+  }
 
-    handleSelectAccount(event) {
-        this.setState({
-            ...this.state,
-            account: event.target.value
-        });
-    }
+  handleSelectAccount(event) {
+    this.setState({
+      ...this.state,
+      account: event.target.value
+    });
+  }
 
-    render() {
-        return(
-            <Card>
-                <Card.Title>Deploy a factory contract</Card.Title>
-                <Card.Body>
-                    <Form>
-                        <Form.Row>
-                            <Form.Group>
-                                <Form.Label>Select Account</Form.Label>
-                                <Form.Control as="select" required value={this.state.account} onChange={e => this.handleOnChangeAmount(e)}>
-                                    {this.props.accounts.map(account => <option key={account}>{account}</option>)}
-                                </Form.Control>
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group>
-                                <Form.Label>Gas amount</Form.Label>
-                                <Form.Control
-                                    required
-                                    type="number"
-                                    placeholder="Enter a gas value"
-                                    onChange = {e => this.handleOnChangeAmount(e)}
-                                    value={this.state.gas}
-                                />
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Button onClick={()=>this.props.deployFactory(this.state.account, this.state.gas)}>Submit form</Button>
-                        </Form.Row>
-                    </Form>
-                </Card.Body>
-            </Card>
-        );
-    }
+  render() {
+    return(
+      <Card>
+        <Card.Title>Deploy a factory contract</Card.Title>
+        <Card.Body>
+          <Form>
+            <Form.Row>
+              <Form.Group>
+                <Form.Label>Select Account</Form.Label>
+                <Form.Control as="select" required value={this.state.account} onChange={e => this.handleOnChangeAmount(e)}>
+                  {this.props.accounts.map(account => <option key={account}>{account}</option>)}
+                </Form.Control>
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group>
+                <Form.Label>Gas amount</Form.Label>
+                <Form.Control
+                  required
+                  type="number"
+                  placeholder="Enter a gas value"
+                  onChange = {e => this.handleOnChangeAmount(e)}
+                  value={this.state.gas}
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Button onClick={()=>this.props.deployFactory(this.state.account, this.state.gas)}>Submit form</Button>
+            </Form.Row>
+          </Form>
+        </Card.Body>
+      </Card>
+    );
+  }
 }
 
 DeployFactoryContractForm.propTypes = {
-    accounts: PropTypes.array,
-    deployFactory: PropTypes.func
+  accounts: PropTypes.array,
+  deployFactory: PropTypes.func
 };
 
 export default DeployFactoryContractForm;
