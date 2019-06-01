@@ -17,9 +17,9 @@ function contractsReducer(state = initialState, action) {
         };
     case GET_CONTRACT_ABI_SUCCESS:
         abi = {
-            ...state.abi
+            ...(state.abi)
         };
-        abi[action.contractType] = action.contract;
+        abi[action.payload.contractType] = action.payload.abi;
         return {
             ...state,
             loadingAbi: false,

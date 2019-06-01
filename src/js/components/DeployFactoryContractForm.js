@@ -45,7 +45,6 @@ class DeployFactoryContractForm extends React.Component {
                             required
                             type="number"
                             placeholder="Enter a gas value"
-                            defaultValue="0"
                             onChange = {e => this.handleOnChangeAmount(e)}
                             value={this.state.gas}
                         />

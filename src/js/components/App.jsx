@@ -7,6 +7,7 @@ import Home from './Home';
 import Logger from '../utils/logger';
 import Spinner from 'react-bootstrap/Spinner';
 import { initWeb3 } from '../actions/web3';
+import { getContractAbi } from '../actions/contracts';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -14,7 +15,8 @@ import DeployFactoryContractContainer from './DeployFactoryContractContainer';
 
 const mapDispatchToProps = dispatch => {
     return {
-        initWeb3: () => dispatch(initWeb3())
+        initWeb3: () => dispatch(initWeb3()),
+        getContractAbi: contractType => dispatch(getContractAbi(contractType))
     };
 };
 
@@ -32,6 +34,7 @@ class App extends React.Component {
             isLoading: false
         });
         this.props.initWeb3();
+        this.props.getContractAbi('tsp');
     }
     render() {
         if(this.state.isLoading === false) {
@@ -39,13 +42,13 @@ class App extends React.Component {
                 <div>
                     <nav className="navbar navbar-light">
                         <ul className="nav navbar-nav">
-                            <li><Link to="/" component={Home}>Home</Link></li>
-                            <li><Link to="/deploy/factory" component={DeployFactoryContractContainer}>Deploy factory</Link></li>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/deploy/factory">Deploy factory</Link></li>
                         </ul>
                     </nav>
                     <Switch>
-                        <Route exact path="/" component={Home}/>
-                        <Route path="/deploy/factory" component={DeployFactoryContractContainer}/>
+                        <Route exact path="/" render={() => <Home/>}/>
+                        <Route path="/deploy/factory" render={() => <DeployFactoryContractContainer/>}/>
                     </Switch>
                 </div>
             );
@@ -60,7 +63,8 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    initWeb3: PropTypes.func
+    initWeb3: PropTypes.func,
+    getContractAbi: PropTypes.func
 };
 
 export default connect(null, mapDispatchToProps)(App);
