@@ -1,9 +1,12 @@
-import { GET_CONTRACT_ABI, GET_CONTRACT_ABI_SUCCESS, GET_CONTRACT_ABI_ERROR } from '../constants/action-types';
+import { GET_CONTRACT_ABI, GET_CONTRACT_ABI_SUCCESS, GET_CONTRACT_ABI_ERROR, DEPLOY_FACTORY_CONTRACT } from '../constants/action-types';
 
 const initialState = {
     abi: null,
     loadingAbi: false,
-    loadingAbiError: null
+    loadingAbiError: null,
+    factoryContract: null,
+    loadingFactoryContract: null,
+    loadingFactoryContractError: false
 };
 
 function contractsReducer(state = initialState, action) {
@@ -32,6 +35,12 @@ function contractsReducer(state = initialState, action) {
             loadingAbi: false,
             loadingAbiError: action.payload
         };
+    case DEPLOY_FACTORY_CONTRACT:
+        return {
+            ...state,
+            loadingFactoryContract: true
+        };
+        
     default:
         return state;
     }

@@ -35,6 +35,7 @@ class App extends React.Component {
         });
         this.props.initWeb3();
         this.props.getContractAbi('tsp');
+        this.props.getContractAbi('factory');
     }
     render() {
         if(this.state.isLoading === false) {
