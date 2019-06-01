@@ -1,2 +1,5 @@
 export const ADD_ARTICLE = 'ADD_ARTICLE';
 export const INIT_WEB3 = 'INIT_WEB3';
+export const GET_ACCOUNTS = 'GET_ACCOUNTS';
+export const GET_ACCOUNTS_SUCCESS = 'GET_ACCOUNTS_SUCCESS';
+export const GET_ACCOUNTS_ERROR = 'GET_ACCOUNTS_ERROR';

@@ -10,6 +10,7 @@ import { initWeb3 } from '../actions/web3';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.css';
+import DeployFactoryContractContainer from './DeployFactoryContractContainer';
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -39,10 +40,12 @@ class App extends React.Component {
                     <nav className="navbar navbar-light">
                         <ul className="nav navbar-nav">
                             <li><Link to="/" component={Home}>Home</Link></li>
+                            <li><Link to="/deploy/factory" component={DeployFactoryContractContainer}>Deploy factory</Link></li>
                         </ul>
                     </nav>
                     <Switch>
                         <Route exact path="/" component={Home}/>
+                        <Route path="/deploy/factory" component={DeployFactoryContractContainer}/>
                     </Switch>
                 </div>
             );
