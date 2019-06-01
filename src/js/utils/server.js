@@ -6,6 +6,9 @@ class Server {
     async post(url,data) {
         return axios.post(`${server}/${url}`, data);
     }
+    async get(url) {
+        return axios.post(`${server}/${url}`);
+    }
 }
 
 export default Server;
