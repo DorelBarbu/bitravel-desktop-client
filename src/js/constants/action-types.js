@@ -1,4 +1,5 @@
 export const ADD_ARTICLE = 'ADD_ARTICLE';
+export const INIT_WEB3 = 'INIT_WEB3';
 export const INIT_WEB3_SUCCESS = 'INIT_WEB3_SUCCESS';
 export const INIT_WEB3_DENIED = 'INIT_WEB3_DENIED';
 export const GET_ACCOUNTS = 'GET_ACCOUNTS';
