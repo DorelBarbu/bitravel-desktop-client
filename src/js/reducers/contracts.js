@@ -1,5 +1,6 @@
 import { GET_CONTRACT_ABI, GET_CONTRACT_ABI_SUCCESS, GET_CONTRACT_ABI_ERROR, 
-  DEPLOY_FACTORY_CONTRACT, DEPLOY_FACTORY_CONTRACT_ERROR, DEPLOY_FACTORY_CONTRACT_SUCCESS } from '../constants/action-types';
+  DEPLOY_FACTORY_CONTRACT, DEPLOY_FACTORY_CONTRACT_ERROR, DEPLOY_FACTORY_CONTRACT_SUCCESS, 
+  DEPLOY_TSP_CONTRACT, DEPLOY_TSP_CONTRACT_SUCCESS, DEPLOY_TSP_CONTRACT_ERROR } from '../constants/action-types';
 
 const initialState = {
   abi: null,
@@ -7,7 +8,10 @@ const initialState = {
   loadingAbiError: null,
   factoryContract: null,
   loadingFactoryContract: false,
-  loadingFactoryContractError: null
+  loadingFactoryContractError: null,
+  tspContracts: [],
+  loadingTspContract: false,
+  loadingTspContractError: null
 };
 
 function contractsReducer(state = initialState, action) {
@@ -27,7 +31,7 @@ function contractsReducer(state = initialState, action) {
     return {
       ...state,
       loadingAbi: false,
-      loadingAbError: false,
+      loadingAbiError: false,
       abi
     };
   case GET_CONTRACT_ABI_ERROR:
@@ -53,6 +57,25 @@ function contractsReducer(state = initialState, action) {
       loadingFactoryContract: false,
       factoryContract: null,
       loadingFactoryContractError: action.payload
+    };
+  case DEPLOY_TSP_CONTRACT:
+    return {
+      ...state,
+      loadingTspContract: true,
+      loadingTspContractError: null
+    };
+  case DEPLOY_TSP_CONTRACT_SUCCESS:
+    return {
+      ...state,
+      loadingTspContract: false,
+      tspContracts: [...state.tspContracts, action.payload],
+      loadingTspContractError: null
+    };
+  case DEPLOY_TSP_CONTRACT_ERROR:
+    return {
+      ...state,
+      loadingTspContract: false,
+      loadingTspContractError: action.payload
     };
   default:
     return state;

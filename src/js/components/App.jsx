@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.css';
 import DeployFactoryContractContainer from './DeployFactoryContractContainer';
+import DeployTspContractContainer from './DeployTspContractContainer';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -43,12 +44,14 @@ class App extends React.Component {
             <ul className="nav navbar-nav">
               <li><Link to="/">Home</Link></li>
               <li><Link to="/deploy/factory">Deploy factory</Link></li>
+              <li><Link to="/deploy/tsp">Deploy tsp</Link></li>
             </ul>
           </nav>
           <p>{`Running application in ${process.env.REACT_APP_LOCAL_BLOCKHAIN}`}</p>
           <Switch>
             <Route exact path="/" render={() => <Home/>}/>
             <Route path="/deploy/factory" render={() => <DeployFactoryContractContainer/>}/>
+            <Route path="/deploy/tsp" render={() => <DeployTspContractContainer/>}/>
           </Switch>
         </div>
       );
