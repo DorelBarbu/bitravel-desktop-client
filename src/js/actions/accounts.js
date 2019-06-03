@@ -7,6 +7,9 @@ const isLocal = process.env.REACT_APP_LOCAL_BLOCKCHAIN;
 
 export function getAccounts() {
   return async (dispatch, getState) => {
+    dispatch({
+      type:GET_ACCOUNTS
+    });
     if(isLocal === 'true') {
       try {
         const response = await Server.get('account');

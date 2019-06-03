@@ -1,5 +1,6 @@
 import Web3 from 'web3';
 import { INIT_WEB3_SUCCESS, INIT_WEB3_DENIED, INIT_WEB3 } from '../constants/action-types';
+import { getAccounts } from '../actions/accounts';
 
 // eslint-disable-next-line no-undef
 const isLocal = process.env.REACT_APP_LOCAL_BLOCKCHAIN;
@@ -12,6 +13,7 @@ export function initWeb3() {
         type: INIT_WEB3_SUCCESS,
         payload: null
       });
+      dispatch(getAccounts());
     } else {
       dispatch({
         type: INIT_WEB3

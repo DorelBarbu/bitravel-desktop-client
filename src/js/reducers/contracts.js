@@ -1,6 +1,8 @@
 import { GET_CONTRACT_ABI, GET_CONTRACT_ABI_SUCCESS, GET_CONTRACT_ABI_ERROR, 
   DEPLOY_FACTORY_CONTRACT, DEPLOY_FACTORY_CONTRACT_ERROR, DEPLOY_FACTORY_CONTRACT_SUCCESS, 
-  DEPLOY_TSP_CONTRACT, DEPLOY_TSP_CONTRACT_SUCCESS, DEPLOY_TSP_CONTRACT_ERROR } from '../constants/action-types';
+  DEPLOY_TSP_CONTRACT, DEPLOY_TSP_CONTRACT_SUCCESS, DEPLOY_TSP_CONTRACT_ERROR,
+  GET_DEPLOYED_CONTRACT, GET_DEPLOYED_CONTRACT_SUCCESS, GET_DEPLOYED_CONTRACT_ERROR,
+  GET_DEPLOYED_TSP_CONTRACTS, GET_DEPLOYED_TSP_CONTRACTS_ERROR, GET_DEPLOYED_TSP_CONTRACTS_SUCCCESS } from '../constants/action-types';
 
 const initialState = {
   abi: null,
@@ -11,7 +13,13 @@ const initialState = {
   loadingFactoryContractError: null,
   tspContracts: [],
   loadingTspContract: false,
-  loadingTspContractError: null
+  loadingTspContractError: null,
+  deployedContract: null,
+  loadingDeployedContract: false,
+  loadingDeployedContractError: null,
+  deployedTspContracts: [],
+  loadingDeployedTspContracts: false,
+  loadingDeployedTspContractsError: null
 };
 
 function contractsReducer(state = initialState, action) {
@@ -76,6 +84,53 @@ function contractsReducer(state = initialState, action) {
       ...state,
       loadingTspContract: false,
       loadingTspContractError: action.payload
+    };
+  case GET_DEPLOYED_CONTRACT:
+    return {
+      ...state,
+      loadingDeployedContract: true,
+      deployedContract: {
+        type: action.payload.contractType
+      },
+      loadingDeployedContractError: null
+    };
+  case GET_DEPLOYED_CONTRACT_SUCCESS:
+    return {
+      ...state,
+      loadingDeployedContract: false,
+      deployedContract: {
+        type: state.deployedContract.type,
+        contract: action.payload
+      },
+      loadingDeployedContractError: null
+    };
+  case GET_DEPLOYED_CONTRACT_ERROR:
+    return {
+      ...state,
+      loadingDeployedContract: false,
+      deployedContract: null,
+      loadingDeployedContractError: action.payload
+    };
+  case GET_DEPLOYED_TSP_CONTRACTS:
+    return {
+      ...state,
+      deployedTspContracts: [],
+      loadingDeployedTspContracts: true,
+      loadingDeployedTspContractsError: null
+    };
+  case GET_DEPLOYED_TSP_CONTRACTS_SUCCCESS:
+    return {
+      ...state,
+      deployedTspContracts: action.payload,
+      loadingDeployedTspContracts: false,
+      loadingDeployedTspContractsError: null
+    };
+  case GET_DEPLOYED_TSP_CONTRACTS_ERROR:
+    return {
+      ...state,
+      deployedTspContracts: [],
+      loadingDeployedTspContracts: false,
+      loadingDeployedTspContractsError: action.payload
     };
   default:
     return state;
