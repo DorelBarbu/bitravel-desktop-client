@@ -14,6 +14,7 @@ import DeployFactoryContractContainer from './DeployFactoryContractContainer';
 import DeployTspContractContainer from './DeployTspContractContainer';
 import ContributeContainer from './ContributeContainer';
 import TspContractList from './TspContractList';
+import SetReward from './SetReward';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -59,13 +60,17 @@ class App extends React.Component {
               <li><Link to="/contracts/view/all">Contract List</Link></li>
             </ul>
           </nav>
+          {/* eslint-disable-next-line no-undef */}
           <p>{`Running application in ${JSON.stringify(process.env.REACT_APP_LOCAL_BLOCKCHAIN)}`}</p>
           <Switch>
             <Route exact path="/" render={() => <Home/>}/>
             <Route path="/deploy/factory" render={() => <DeployFactoryContractContainer/>}/>
-            <Route path="/deploy/tsp" render={() => <DeployTspContractContainer/>}/>
+            <Route path="/deploy/tsp" render={
+              (props) => <DeployTspContractContainer history={props.history}/>}/>
             <Route path="/contribute/:contractId" render={() => <ContributeContainer/>}/>
             <Route path="/contracts/view/all" render={() => <TspContractList factroyId={this.props.factoryId} />}/>
+            <Route path="/contracts/:contractId/reward" render={
+              (props) => <SetReward match={props.match} history={props.history} location={props.location} />}/>
           </Switch>
         </div>
       );

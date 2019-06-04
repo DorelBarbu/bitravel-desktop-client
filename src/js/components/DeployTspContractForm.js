@@ -2,16 +2,17 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Spinner from 'react-bootstrap/Spinner';
+// import Spinner from 'react-bootstrap/Spinner';
 import PropTypes from 'prop-types';
+import Logger from '../utils/logger';
 
 class DeployTspContractForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      account: null,
+      account: '',
       gas: 1000000,
-      mongoAddress: null,
+      mongoAddress: '',
       size: 0
     };
   }
@@ -23,13 +24,19 @@ class DeployTspContractForm extends React.Component {
     });
   }
 
-  deployContract() {
-    this.props.deployTsp({
-      account: this.state.account ? this.state.account : this.props.accounts[0],
-      gas: this.state.gas,
-      mongodbAddress: this.state.mongoAddress,
-      size: this.state.size
-    });
+  async deployContract() {
+    try {
+      const account = this.state.account ? this.state.account : this.props.accounts[0];
+      await this.props.deployTsp({
+        account,
+        gas: this.state.gas,
+        mongodbAddress: this.state.mongoAddress,
+        size: this.state.size
+      });
+      this.props.history.replace(`/contracts/${this.props.contract.address}/reward?account=${account}`);
+    } catch(error) {
+      Logger.err('Error deploying tsp contract');
+    }
   }
 
   render() {
@@ -39,6 +46,7 @@ class DeployTspContractForm extends React.Component {
           Deploy tsp contract
         </Card.Title>
         <Card.Body>
+          {this.props.contract ? this.props.contract.address : 'No Contract deployed yet'}
           <Form>
             <Form.Row>
               <Form.Group>
@@ -94,10 +102,11 @@ class DeployTspContractForm extends React.Component {
 }
 
 DeployTspContractForm.propTypes = {
-  contracts: PropTypes.array,
+  contract: PropTypes.object,
   loadingTspContract: PropTypes.bool,
   accounts: PropTypes.array,
-  deployTsp: PropTypes.func
+  deployTsp: PropTypes.func,
+  history: PropTypes.object
 };
 
 export default DeployTspContractForm;

@@ -8,7 +8,7 @@ const initialState = {
   abi: null,
   loadingAbi: false,
   loadingAbiError: null,
-  factoryContract: null,
+  factoryContract: '0x8d3Ce5B1c61F2D896bB6355540a5715C9c03A198',
   loadingFactoryContract: false,
   loadingFactoryContractError: null,
   tspContracts: [],

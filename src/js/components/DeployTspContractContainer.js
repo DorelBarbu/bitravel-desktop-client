@@ -18,7 +18,12 @@ class DeployTspContractContainer extends React.Component {
   render() {
     return (
       // <h2>Deploy tsp contract form</h2>
-      <DeployTspContractForm accounts={this.props.accounts} deployTsp={this.props.deployTsp} />
+      <DeployTspContractForm 
+        accounts={this.props.accounts} 
+        deployTsp={this.props.deployTsp}
+        history={this.props.history} 
+        contract={this.props.contracts.length > 0 ? this.props.contracts[this.props.contracts.length-1] : null }
+      />
     );
   }
 }
@@ -27,7 +32,8 @@ DeployTspContractContainer.propTypes = {
   contracts: PropTypes.array,
   loadingTspContract: PropTypes.bool,
   accounts: PropTypes.array,
-  deployTsp: PropTypes.func
+  deployTsp: PropTypes.func,
+  history: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeployTspContractContainer);
