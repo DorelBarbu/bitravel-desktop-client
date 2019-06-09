@@ -141,7 +141,7 @@ export function getDeployedTspContracts() {
         if(response.isError === false) {
           dispatch({
             type: GET_DEPLOYED_TSP_CONTRACTS_SUCCCESS,
-            payload: response.data
+            payload: response.data.deployedInstances
           });
         } else {
           dispatch({

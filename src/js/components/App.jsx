@@ -13,7 +13,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import DeployFactoryContractContainer from './DeployFactoryContractContainer';
 import DeployTspContractContainer from './DeployTspContractContainer';
 import ContributeContainer from './ContributeContainer';
-import TspContractList from './TspContractList';
+import TspContractListContainer from './TspContractListContainer';
 import SetReward from './SetReward';
 
 const mapDispatchToProps = dispatch => {
@@ -68,7 +68,7 @@ class App extends React.Component {
             <Route path="/deploy/tsp" render={
               (props) => <DeployTspContractContainer history={props.history}/>}/>
             <Route path="/contribute/:contractId" render={() => <ContributeContainer/>}/>
-            <Route path="/contracts/view/all" render={() => <TspContractList factroyId={this.props.factoryId} />}/>
+            <Route path="/contracts/view/all" render={() => <TspContractListContainer factroyId={this.props.factoryId} />}/>
             <Route path="/contracts/:contractId/reward" render={
               (props) => <SetReward match={props.match} history={props.history} location={props.location} />}/>
           </Switch>
