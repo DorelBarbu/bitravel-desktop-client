@@ -96,7 +96,6 @@ class DeployTspContractForm extends React.Component {
           </Form>
         </Card.Body>
       </Card>
-      // <h2>Deploy tsp contract from component</h2>
     );
   }
 }

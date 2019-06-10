@@ -12,9 +12,9 @@ import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.css';
 import DeployFactoryContractContainer from './DeployFactoryContractContainer';
 import DeployTspContractContainer from './DeployTspContractContainer';
-import ContributeContainer from './ContributeContainer';
 import TspContractListContainer from './TspContractListContainer';
 import SetReward from './SetReward';
+import Contribute from './Contribute';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -64,13 +64,17 @@ class App extends React.Component {
           <p>{`Running application in ${JSON.stringify(process.env.REACT_APP_LOCAL_BLOCKCHAIN)}`}</p>
           <Switch>
             <Route exact path="/" render={() => <Home/>}/>
-            <Route path="/deploy/factory" render={() => <DeployFactoryContractContainer/>}/>
-            <Route path="/deploy/tsp" render={
+            <Route exact path="/deploy/factory" render={() => <DeployFactoryContractContainer/>}/>
+            <Route exact path="/deploy/tsp" render={
               (props) => <DeployTspContractContainer history={props.history}/>}/>
-            <Route path="/contribute/:contractId" render={() => <ContributeContainer/>}/>
-            <Route path="/contracts/view/all" render={() => <TspContractListContainer factroyId={this.props.factoryId} />}/>
-            <Route path="/contracts/:contractId/reward" render={
+            <Route exact path="/contracts/view/all" render={props => 
+              <TspContractListContainer {...props} factroyId={this.props.factoryId} />}
+            />
+            <Route exact path="/contracts/:contractId/reward" render={
               (props) => <SetReward match={props.match} history={props.history} location={props.location} />}/>
+            <Route exact path="/contracts/contribute/:contractId" render = {
+              (props) => <Contribute match={props.match} />
+            }/>
           </Switch>
         </div>
       );

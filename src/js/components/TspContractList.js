@@ -4,12 +4,13 @@ import CardColumns from 'react-bootstrap/CardColumns';
 import Card from 'react-bootstrap/Card';
 class TspContractList extends React.Component {
   render() {
-    const cards = this.props.contracts.map(contract => <Card key={contract.contractAddress}>
-      <Card.Title>{contract.contractAddress}</Card.Title>
-    </Card>);
+    const cards = this.props.contracts.map(contract => 
+      <Card key={contract.contractAddress} onClick={() => 
+        this.props.history.replace(`/contracts/contribute/${contract.contractAddress}`)}>
+        <Card.Title>{contract.contractAddress}</Card.Title>
+      </Card>);
     return (
       <div>
-        <h2>There will lie the contract list</h2>
         <CardColumns>
           {cards}
         </CardColumns>
@@ -19,7 +20,8 @@ class TspContractList extends React.Component {
 }
 
 TspContractList.propTypes = {
-  contracts: PropTypes.array
+  contracts: PropTypes.array,
+  history: PropTypes.object
 };
 
 export default TspContractList;

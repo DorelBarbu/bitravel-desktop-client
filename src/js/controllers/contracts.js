@@ -20,6 +20,21 @@ export async function setReward (accountId, address, reward) {
   }
 }
 
+export async function contribute(account, contract) {
+  if(isLocal === 'true') {
+    try {
+      const response = await Server.post(`contract/${contract}/contribute`, {
+        account
+      });
+      return response;
+    } catch(error) {
+      Logger.err(error);
+    }
+  } else {
+    //TODO: connect to metamask
+  }
+}
+
 export async function deployTsp(contractData, factory) {
   if(isLocal === 'true') {
     try {

@@ -29,7 +29,7 @@ class TspContractListContainer extends React.Component {
       return (
         <div>
           <h2>Contract List</h2>
-          <TspContractList contracts={this.props.contracts} />
+          <TspContractList history={this.props.history} contracts={this.props.contracts} />
         </div>
       );
     } else {
@@ -50,7 +50,8 @@ TspContractListContainer.propTypes = {
   loadingDeployedTspContracts: PropTypes.bool,
   loadingDeployedTspContractsError: PropTypes.object,
   getDeployedTspContracts: PropTypes.func,
-  factoryId: PropTypes.string
+  factoryId: PropTypes.string,
+  history: PropTypes.object
 };
 
 export default connect(mapStateToProps,mapDispatchToProps)(TspContractListContainer);
