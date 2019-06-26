@@ -35,7 +35,6 @@ class DeployFactoryContractForm extends React.Component {
       return(
         <Card>
           <Card.Title>Deploy a factory contract</Card.Title>
-          <p>{JSON.stringify(this.props.loadingFactoryContract)}</p>
           <Card.Body>
             <Form>
               <Form.Row>

@@ -3,9 +3,9 @@ import axios from 'axios';
 const server = 'http://localhost:5000';
 
 class Server {
-  async post(url,data) {
+  async post(url,data, origin = null) {
     try {
-      return (await axios.post(`${server}/${url}`, data)).data;
+      return (await axios.post(`${origin ? origin : server}/${url}`, data)).data;
     } catch(error) {
       return {
         isError: true,

@@ -15,6 +15,7 @@ import DeployTspContractContainer from './DeployTspContractContainer';
 import TspContractListContainer from './TspContractListContainer';
 import SetReward from './SetReward';
 import Contribute from './Contribute';
+import TravelPlanForm from './TravelPlanForm';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -58,6 +59,7 @@ class App extends React.Component {
               <li><Link to="/deploy/tsp">Deploy tsp</Link></li>
               <li><Link to="/contribute/:contractId">Contribute</Link></li>
               <li><Link to="/contracts/view/all">Contract List</Link></li>
+              <li><Link to="/travel/planning">Travel planning</Link></li>
             </ul>
           </nav>
           {/* eslint-disable-next-line no-undef */}
@@ -75,6 +77,7 @@ class App extends React.Component {
             <Route exact path="/contracts/contribute/:contractId" render = {
               (props) => <Contribute match={props.match} />
             }/>
+            <Route exact path="/travel/planning" render = { () => <TravelPlanForm /> }></Route>
           </Switch>
         </div>
       );

@@ -1,0 +1,1 @@
+export const KIWI_API = 'http://localhost:5000';

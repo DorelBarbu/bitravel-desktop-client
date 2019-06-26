@@ -25,13 +25,11 @@ class Contribute extends React.Component {
     });
   }
 
-  async contribute() {
-    try {
-      const response = await contribute(this.state.account, this.contractId);
-      console.log(response);
-    } catch(error) {
-      console.log(error);
-    }
+  contribute() {
+    setInterval(() => {
+      const response = contribute(this.state.account, this.contractId);
+      response.then(console.log).catch(console.error);
+    }, 1000);
   }
 
   render() {
