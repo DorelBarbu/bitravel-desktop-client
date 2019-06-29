@@ -6,6 +6,7 @@ import { GET_CONTRACT_ABI, GET_CONTRACT_ABI_SUCCESS, GET_CONTRACT_ABI_ERROR,
   from '../constants/action-types';
 import { getContract } from '../api/bitravel-eth/contracts';
 import Server from '../utils/server';
+import { BITRAVEL_ETH } from '../constants/servers';
 
 // eslint-disable-next-line no-undef
 const isLocal = process.env.REACT_APP_LOCAL_BLOCKCHAIN;
@@ -74,7 +75,7 @@ export function deployFactory(account, gas) {
         tspFactory =  (await Server.post('contract/factory', {
           gas,
           account
-        })).data.address;
+        }, BITRAVEL_ETH)).data.address;
       } else {
         const web3 = getState().init.web3;
         tspFactory = await new web3.eth.Contract(JSON.parse(interf))
@@ -107,7 +108,7 @@ export function deployTsp(contractData) {
           gas: contractData.gas,
           size: contractData.size,
           mongodbAddress: contractData.mongodbAddress
-        });
+        }, BITRAVEL_ETH);
         if(response.isError === false) {
           dispatch({
             type: DEPLOY_TSP_CONTRACT_SUCCESS,
@@ -137,7 +138,7 @@ export function getDeployedTspContracts() {
     if(isLocal === 'true') {
       const factoryId = getState().contracts.factoryContract;
       try {
-        const response = await Server.get(`contract/factory/${factoryId}/deployed`);
+        const response = await Server.get(`contract/factory/${factoryId}/deployed`, BITRAVEL_ETH);
         if(response.isError === false) {
           dispatch({
             type: GET_DEPLOYED_TSP_CONTRACTS_SUCCCESS,

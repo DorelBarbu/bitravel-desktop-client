@@ -6,6 +6,8 @@ import TravelPlanFormRow from './TravelPlanFormRow';
 import { DESTINATIONS } from '../constants/app-constants';
 import moment from 'moment';
 import { confirmTrip } from '../api/kiwi/kiwi';
+import { insertGraph } from '../api/bitravel-main/graph';
+import Graph from '../utils/tsp-graph/graph';
 
 const defaultFlight = {
   source: DESTINATIONS[0],
@@ -14,6 +16,68 @@ const defaultFlight = {
   date_to: moment(new Date()).add(1,'days').format('YYYY-MM-DD')
 };
 
+const mockTrip = [
+  {
+    'countryFrom': {
+      'code': 'CZ',
+      'name': 'Czechia'
+    },
+    'countryTo': {
+      'code': 'RO',
+      'name': 'Romania'
+    },
+    'price': 135,
+    'dTime': 1561887000,
+    'aTime': 1561897200,
+    'flyFrom': 'PRG',
+    'flyTo': 'OTP',
+    'cityFrom': 'Prague',
+    'cityTo': 'Bucharest',
+    'distance': 1082.82,
+    'aTimeUTC': 1561886400,
+    'dTimeUTC': 1561879800
+  },
+  {
+    'countryFrom': {
+      'code': 'RO',
+      'name': 'Romania'
+    },
+    'countryTo': {
+      'code': 'CZ',
+      'name': 'Czechia'
+    },
+    'price': 94,
+    'dTime': 1561994400,
+    'aTime': 1561997700,
+    'flyFrom': 'OTP',
+    'flyTo': 'PRG',
+    'cityFrom': 'Bucharest',
+    'cityTo': 'Prague',
+    'distance': 1082.82,
+    'aTimeUTC': 1561990500,
+    'dTimeUTC': 1561983600
+  },
+  {
+    'countryFrom': {
+      'code': 'CZ',
+      'name': 'Czechia'
+    },
+    'countryTo': {
+      'code': 'IT',
+      'name': 'Italy'
+    },
+    'price': 69,
+    'dTime': 1562137500,
+    'aTime': 1562142900,
+    'flyFrom': 'PRG',
+    'flyTo': 'MXP',
+    'cityFrom': 'Prague',
+    'cityTo': 'Milan',
+    'distance': 646.67,
+    'aTimeUTC': 1562135700,
+    'dTimeUTC': 1562130300
+  }
+];
 class TravelPlanForm extends React.Component {
   constructor(props) {
     super(props);
@@ -45,27 +109,42 @@ class TravelPlanForm extends React.Component {
   }
 
   async confirm() {
-    // console.log(this.state.flights);
+    //const graph = new Graph(mockTrip);
+    //console.log(graph);
     try {
-      const response = await confirmTrip(this.state.flights.map(flight => {
+      const trip = (await confirmTrip(this.state.flights.map(flight => {
         return {
           ...flight,
           date_from: moment(flight.date_from, 'YYYY-MM-DD').format('DD/MM/YYYY'),
           date_to: moment(flight.date_to, 'YYYY-MM-DD').format('DD/MM/YYYY')
         };
-      }));
-      console.log(response);
+      }))).flights;
+      console.log(trip);
+      const graph = new Graph(trip);
+      const databaseInsertResult = await insertGraph(graph);
+      console.log(databaseInsertResult);
     } catch(error) {
       console.log(error);
     }
-    // console.log(response);
   }
 
   render() {
     return(
       <Container>
         <Form>
-          {this.state.flights.map(flight => <TravelPlanFormRow key={JSON.stringify(flight)} value={flight}/>)}
+          {this.state.flights.map((flight, index) => 
+            <TravelPlanFormRow 
+              key={JSON.stringify(flight)} 
+              value={flight}
+              updateValue={newValue => {
+                const flights = this.state.flights;
+                flights[index] = newValue;
+                this.setState({
+                  ...this.state,
+                  flights
+                });
+              }}
+            />)}
           <Form.Row>
             <Button onClick={() => this.addFlight()}>
               Add Destination

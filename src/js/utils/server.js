@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-const server = 'http://localhost:5000';
-
 class Server {
-  async post(url,data, origin = null) {
+  async post(url,data, origin) {
+    console.log(origin, url);
     try {
-      return (await axios.post(`${origin ? origin : server}/${url}`, data)).data;
+      return (await axios.post(`${origin}/${url}`, data)).data;
     } catch(error) {
       return {
         isError: true,
@@ -13,8 +12,9 @@ class Server {
       };
     }
   }
-  async get(url) {
-    return (await axios.get(`${server}/${url}`)).data;
+  async get(url, origin) {
+    console.log(origin, url);
+    return (await axios.get(`${origin}/${url}`)).data;
   }
 }
 

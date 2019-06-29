@@ -12,7 +12,6 @@ class DeployTspContractForm extends React.Component {
     this.state = {
       account: '',
       gas: 1000000,
-      mongoAddress: '',
       size: 0
     };
   }
@@ -30,7 +29,7 @@ class DeployTspContractForm extends React.Component {
       await this.props.deployTsp({
         account,
         gas: this.state.gas,
-        mongodbAddress: this.state.mongoAddress,
+        mongodbAddress: this.props.match.params.tripId,
         size: this.state.size
       });
       this.props.history.replace(`/contracts/${this.props.contract.address}/reward?account=${account}`);
@@ -70,17 +69,6 @@ class DeployTspContractForm extends React.Component {
             </Form.Row>
             <Form.Row>
               <Form.Group>
-                <Form.Label>Mongo address</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Enter a mongo db id"
-                  onChange = {e => this.setState({...this.state, mongoAddress: e.target.value})}
-                />
-              </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Form.Group>
                 <Form.Label>Problem size</Form.Label>
                 <Form.Control
                   required
@@ -105,7 +93,8 @@ DeployTspContractForm.propTypes = {
   loadingTspContract: PropTypes.bool,
   accounts: PropTypes.array,
   deployTsp: PropTypes.func,
-  history: PropTypes.object
+  history: PropTypes.object,
+  match: PropTypes.object
 };
 
 export default DeployTspContractForm;

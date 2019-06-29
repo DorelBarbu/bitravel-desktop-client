@@ -1,1 +1,1 @@
-export const DESTINATIONS = ['Prague', 'Bucharest', 'Pars', 'Vienna', 'London', 'New York', 'Washington', 'Milan', 'Rome', 'Lisbon'];
+export const DESTINATIONS = ['Prague', 'Bucharest', 'Paris', 'Vienna', 'London', 'New York', 'Washington', 'Milan', 'Rome', 'Lisbon'];

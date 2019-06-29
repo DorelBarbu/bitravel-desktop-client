@@ -16,6 +16,12 @@ import TspContractListContainer from './TspContractListContainer';
 import SetReward from './SetReward';
 import Contribute from './Contribute';
 import TravelPlanForm from './TravelPlanForm';
+import GraphList from './GraphList';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import icon from '../../images/bitravel-icon.png';
+import logo from '../../images/bitravel-logo.png';
+import '../../css/general.css';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -52,32 +58,40 @@ class App extends React.Component {
     if(this.state.isLoading === false) {
       return (
         <div>
-          <nav className="navbar navbar-light">
-            <ul className="nav navbar-nav">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/deploy/factory">Deploy factory</Link></li>
-              <li><Link to="/deploy/tsp">Deploy tsp</Link></li>
-              <li><Link to="/contribute/:contractId">Contribute</Link></li>
-              <li><Link to="/contracts/view/all">Contract List</Link></li>
-              <li><Link to="/travel/planning">Travel planning</Link></li>
-            </ul>
-          </nav>
+          <div className='center-container margin-small'>
+            <img src={logo} style={{height: 150}}></img>
+          </div>
+          <Navbar bg="dark" variant="dark">
+            <Navbar.Brand href="#home">
+              <img src={icon} style={{width: 50}}></img>
+            </Navbar.Brand>
+            <Nav className="mr-auto">
+              <Link className="nav-link" to="/">Home</Link>
+              {/* <Link className="nav-link" to="/deploy/factory">Deploy factory</Link> */}
+              {/* <Link className="nav-link" to="/deploy/tsp">Deploy tsp</Link> */}
+              <Link className="nav-link" to="/contribute/:contractId">Contribute</Link>
+              <Link className="nav-link" to="/contracts/view/all">Contract List</Link>
+              <Link className="nav-link" to="/travel/planning">Travel planning</Link>
+              <Link className="nav-link" to="/travel/view">Existing travel plans</Link>
+            </Nav>
+          </Navbar>
           {/* eslint-disable-next-line no-undef */}
           <p>{`Running application in ${JSON.stringify(process.env.REACT_APP_LOCAL_BLOCKCHAIN)}`}</p>
           <Switch>
             <Route exact path="/" render={() => <Home/>}/>
             <Route exact path="/deploy/factory" render={() => <DeployFactoryContractContainer/>}/>
-            <Route exact path="/deploy/tsp" render={
-              (props) => <DeployTspContractContainer history={props.history}/>}/>
+            <Route exact path="/deploy/tsp/:tripId" render={
+              (props) => <DeployTspContractContainer match={props.match} history={props.history}/>}/>
             <Route exact path="/contracts/view/all" render={props => 
               <TspContractListContainer {...props} factroyId={this.props.factoryId} />}
             />
-            <Route exact path="/contracts/:contractId/reward" render={
+            <Route exact path="/contracts/:contractId/reward" render= {
               (props) => <SetReward match={props.match} history={props.history} location={props.location} />}/>
             <Route exact path="/contracts/contribute/:contractId" render = {
               (props) => <Contribute match={props.match} />
             }/>
             <Route exact path="/travel/planning" render = { () => <TravelPlanForm /> }></Route>
+            <Route exact path="/travel/view"  render = { props => <GraphList history={props.history} /> }></Route>
           </Switch>
         </div>
       );

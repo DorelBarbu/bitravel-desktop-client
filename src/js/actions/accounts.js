@@ -1,6 +1,7 @@
 import { GET_ACCOUNTS, GET_ACCOUNTS_SUCCESS, GET_ACCOUNTS_ERROR } from '../constants/action-types';
 import Logger from '../utils/logger';
 import Server from '../utils/server';
+import { BITRAVEL_ETH } from '../constants/servers';
 
 // eslint-disable-next-line no-undef
 const isLocal = process.env.REACT_APP_LOCAL_BLOCKCHAIN;
@@ -12,7 +13,7 @@ export function getAccounts() {
     });
     if(isLocal === 'true') {
       try {
-        const response = await Server.get('account');
+        const response = await Server.get('account', BITRAVEL_ETH);
         if(response.isError === true) {
           dispatch({
             type: GET_ACCOUNTS_ERROR,

@@ -22,6 +22,7 @@ class DeployTspContractContainer extends React.Component {
         accounts={this.props.accounts} 
         deployTsp={this.props.deployTsp}
         history={this.props.history} 
+        match={this.props.match}
         contract={this.props.contracts.length > 0 ? this.props.contracts[this.props.contracts.length-1] : null }
       />
     );
@@ -33,7 +34,8 @@ DeployTspContractContainer.propTypes = {
   loadingTspContract: PropTypes.bool,
   accounts: PropTypes.array,
   deployTsp: PropTypes.func,
-  history: PropTypes.object
+  history: PropTypes.object,
+  match: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeployTspContractContainer);
