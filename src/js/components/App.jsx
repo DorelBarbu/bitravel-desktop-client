@@ -67,8 +67,8 @@ class App extends React.Component {
             </Navbar.Brand>
             <Nav className="mr-auto">
               <Link className="nav-link" to="/">Home</Link>
-              {/* <Link className="nav-link" to="/deploy/factory">Deploy factory</Link> */}
-              {/* <Link className="nav-link" to="/deploy/tsp">Deploy tsp</Link> */}
+              <Link className="nav-link" to="/deploy/factory">Deploy factory</Link>
+              <Link className="nav-link" to="/deploy/tsp">Deploy tsp</Link>
               <Link className="nav-link" to="/contribute/:contractId">Contribute</Link>
               <Link className="nav-link" to="/contracts/view/all">Contract List</Link>
               <Link className="nav-link" to="/travel/planning">Travel planning</Link>
@@ -90,7 +90,9 @@ class App extends React.Component {
             <Route exact path="/contracts/contribute/:contractId" render = {
               (props) => <Contribute match={props.match} />
             }/>
-            <Route exact path="/travel/planning" render = { () => <TravelPlanForm /> }></Route>
+            <Route exact path="/travel/planning" render = { (props) => 
+              <TravelPlanForm history={props.history} /> }>
+            </Route>
             <Route exact path="/travel/view"  render = { props => <GraphList history={props.history} /> }></Route>
           </Switch>
         </div>

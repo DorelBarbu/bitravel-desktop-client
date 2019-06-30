@@ -10,3 +10,7 @@ export const insertGraph = async graph => {
 export const getAllTrips = async () => {
   return Server.get('graph', BITRAVEL_MAIN);
 };
+
+export const getGraphById = async (graphId) => {
+  return Server.get(`graph/${graphId}`, BITRAVEL_MAIN);
+};

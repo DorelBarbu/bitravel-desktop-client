@@ -32,14 +32,6 @@ class TravelPlanFormRow extends React.Component {
           </Form.Control>
         </Form.Group>
         <Form.Group>
-          <Form.Label>destination</Form.Label>
-          <Form.Control placeholder="Select a destination" type="text" as="select" required 
-            value={this.state.value.destination}
-            onChange={e => this.updateValue('destination', e.target.value)}>
-            {DESTINATIONS.map(destination => <option key={destination}>{destination}</option>)}
-          </Form.Control>
-        </Form.Group>
-        <Form.Group>
           <Form.Label>source date</Form.Label>
           <Form.Control placeholder="Select a destination" type="date" required 
             value={this.state.value.date_from}

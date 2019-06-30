@@ -7,6 +7,7 @@ import '../../css/general.css';
 
 class GraphListItem extends React.Component {
   generateTableBody() {
+    console.log(this.props.data);
     const graph = this.props.data;
     // console.log(graph);
     const rows = [];
@@ -14,7 +15,6 @@ class GraphListItem extends React.Component {
     for(let i in graph.edges) {
       const edge = graph.edges[i];
       for(let j in edge) {
-        console.log(edge[j].data);
         rows.push(<tr key={`${graph._id}${keyIndex}`}>
           <td>{edge[j].data.cityFrom}</td>
           <td>{edge[j].data.cityTo}</td>
@@ -28,6 +28,7 @@ class GraphListItem extends React.Component {
   }
 
   render() {
+
     return (
       <div>
         <h4>{`Trip #${this.props.index + 1}`}</h4>
@@ -45,7 +46,11 @@ class GraphListItem extends React.Component {
           </tbody>
         </Table>
         <div className="center-container">
-          <Button onClick={() => this.props.history.replace(`/deploy/tsp/${this.props.data._id}`)}>
+          <Button onClick={() => {
+            this.props.history.push(`/deploy/tsp/${this.props.data._id}`, {
+              problemSize: this.props.data.size
+            });
+          }}>
             Deploy a contract
           </Button>
         </div>

@@ -4,10 +4,19 @@
   align-Items: center;
 };
 
+.stretch-to-full-width {
+  width: 100%
+}
+
 .padding-small {
   padding: 1em;
 }
 
 .margin-small {
   margin: 1rem;
+}
+
+.city-badge {
+  display: inline;
+  margin-right: 1em;
 }

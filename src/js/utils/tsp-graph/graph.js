@@ -1,15 +1,31 @@
 /* eslint-disable no-plusplus */
 import { DESTINATIONS } from '../../constants/app-constants';
 import Node from './node';
+import _ from 'lodash';
 
 class Graph {
-  constructor(trips = []) {
+  constructor(trips = [], source) {
     this.edges = [];
     this.cityToIndex = DESTINATIONS.reduce((cityToIndex, city, index) => {
       cityToIndex[city] = index;
       return cityToIndex;
     }, {});
-    trips.forEach(trip => this.addEdge(trip));
+
+    const cities = [];
+    trips.forEach(trip => {
+      this.addEdge(trip);
+      cities.push(trip.cityTo);
+      cities.push(trip.cityFrom);
+    });
+    this.size = (_.uniq(cities)).length;
+    this.source = this.cityToIndex[source];
+  }
+
+  createFromGraph(graph) {
+    this.edges = graph.edges;
+    this.cityToIndex = graph.cityToIndex;
+    this.size = graph.size;
+    this.source = graph.source;
   }
 
   addEdge(trip) {

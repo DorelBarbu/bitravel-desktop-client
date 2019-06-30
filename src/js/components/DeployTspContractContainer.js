@@ -17,13 +17,13 @@ const mapDispatchToProps = dispatch => ({
 class DeployTspContractContainer extends React.Component {
   render() {
     return (
-      // <h2>Deploy tsp contract form</h2>
       <DeployTspContractForm 
         accounts={this.props.accounts} 
         deployTsp={this.props.deployTsp}
         history={this.props.history} 
         match={this.props.match}
         contract={this.props.contracts.length > 0 ? this.props.contracts[this.props.contracts.length-1] : null }
+        problemSize =  {this.props.history.location.state.problemSize}
       />
     );
   }
@@ -35,7 +35,8 @@ DeployTspContractContainer.propTypes = {
   accounts: PropTypes.array,
   deployTsp: PropTypes.func,
   history: PropTypes.object,
-  match: PropTypes.object
+  match: PropTypes.object,
+  problemSize: PropTypes.number
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeployTspContractContainer);

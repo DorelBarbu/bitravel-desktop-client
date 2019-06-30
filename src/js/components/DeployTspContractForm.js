@@ -12,7 +12,7 @@ class DeployTspContractForm extends React.Component {
     this.state = {
       account: '',
       gas: 1000000,
-      size: 0
+      size: this.props.problemSize
     };
   }
 
@@ -24,6 +24,7 @@ class DeployTspContractForm extends React.Component {
   }
 
   async deployContract() {
+    console.log('about to deploy', this.state);
     try {
       const account = this.state.account ? this.state.account : this.props.accounts[0];
       await this.props.deployTsp({
@@ -45,7 +46,7 @@ class DeployTspContractForm extends React.Component {
           Deploy tsp contract
         </Card.Title>
         <Card.Body>
-          {this.props.contract ? this.props.contract.address : 'No Contract deployed yet'}
+          {`Problems size: ${this.state.size}`}
           <Form>
             <Form.Row>
               <Form.Group>
@@ -68,17 +69,6 @@ class DeployTspContractForm extends React.Component {
               </Form.Group>
             </Form.Row>
             <Form.Row>
-              <Form.Group>
-                <Form.Label>Problem size</Form.Label>
-                <Form.Control
-                  required
-                  type="number"
-                  placeholder="Enter problem size"
-                  onChange = {e => this.setState({...this.state, size: e.target.value})}
-                />
-              </Form.Group>
-            </Form.Row>
-            <Form.Row>
               <Button onClick={()=>this.deployContract()}>Deploy contract</Button>
             </Form.Row>
           </Form>
@@ -94,7 +84,8 @@ DeployTspContractForm.propTypes = {
   accounts: PropTypes.array,
   deployTsp: PropTypes.func,
   history: PropTypes.object,
-  match: PropTypes.object
+  match: PropTypes.object,
+  problemSize: PropTypes.number
 };
 
 export default DeployTspContractForm;
